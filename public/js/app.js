@@ -1934,11 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  }
-});
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -2300,10 +2296,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Panel.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Panel.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2391,6 +2387,229 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      focus: '',
+      type: 'month',
+      typeToLabel: {
+        month: 'Month',
+        week: 'Week',
+        day: 'Day',
+        '4day': '4 Days'
+      },
+      selectedEvent: {},
+      selectedElement: null,
+      selectedOpen: false,
+      events: [],
+      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party']
+    };
+  },
+  mounted: function mounted() {
+    this.$refs.calendar.checkChange();
+  },
+  methods: {
+    viewDay: function viewDay(_ref) {
+      var date = _ref.date;
+      this.focus = date;
+      this.type = 'day';
+    },
+    getEventColor: function getEventColor(event) {
+      return event.color;
+    },
+    setToday: function setToday() {
+      this.focus = '';
+    },
+    prev: function prev() {
+      this.$refs.calendar.prev();
+    },
+    next: function next() {
+      this.$refs.calendar.next();
+    },
+    showEvent: function showEvent(_ref2) {
+      var _this = this;
+
+      var nativeEvent = _ref2.nativeEvent,
+          event = _ref2.event;
+
+      var open = function open() {
+        _this.selectedEvent = event;
+        _this.selectedElement = nativeEvent.target;
+        setTimeout(function () {
+          _this.selectedOpen = true;
+        }, 10);
+      };
+
+      if (this.selectedOpen) {
+        this.selectedOpen = false;
+        setTimeout(open, 10);
+      } else {
+        open();
+      }
+
+      nativeEvent.stopPropagation();
+    },
+    updateRange: function updateRange(_ref3) {
+      var start = _ref3.start,
+          end = _ref3.end;
+      var events = [];
+      var min = new Date("".concat(start.date, "T00:00:00"));
+      var max = new Date("".concat(end.date, "T23:59:59"));
+      var days = (max.getTime() - min.getTime()) / 86400000;
+      var eventCount = this.rnd(days, days + 20);
+
+      for (var i = 0; i < eventCount; i++) {
+        var allDay = this.rnd(0, 3) === 0;
+        var firstTimestamp = this.rnd(min.getTime(), max.getTime());
+        var first = new Date(firstTimestamp - firstTimestamp % 900000);
+        var secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
+        var second = new Date(first.getTime() + secondTimestamp);
+        events.push({
+          name: this.names[this.rnd(0, this.names.length - 1)],
+          start: first,
+          end: second,
+          color: this.colors[this.rnd(0, this.colors.length - 1)]
+        });
+      }
+
+      this.events = events;
+    },
+    rnd: function rnd(a, b) {
+      return Math.floor((b - a + 1) * Math.random()) + a;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Panel.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Panel.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2410,6 +2629,191 @@ __webpack_require__.r(__webpack_exports__);
         return console.warn(err);
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Projects.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Projects.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      count: 10
+    };
   }
 });
 
@@ -3413,6 +3817,356 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    [
+      _c(
+        "v-container",
+        [
+          _c(
+            "v-sheet",
+            { attrs: { height: "64" } },
+            [
+              _c(
+                "v-toolbar",
+                { attrs: { flat: "" } },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "mr-4",
+                      attrs: { outlined: "", color: "grey darken-2" },
+                      on: { click: _vm.setToday }
+                    },
+                    [_vm._v("\r\n            Today\r\n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        fab: "",
+                        text: "",
+                        small: "",
+                        color: "grey darken-2"
+                      },
+                      on: { click: _vm.prev }
+                    },
+                    [
+                      _c("v-icon", { attrs: { small: "" } }, [
+                        _vm._v(
+                          "\r\n              mdi-chevron-left\r\n            "
+                        )
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        fab: "",
+                        text: "",
+                        small: "",
+                        color: "grey darken-2"
+                      },
+                      on: { click: _vm.next }
+                    },
+                    [
+                      _c("v-icon", { attrs: { small: "" } }, [
+                        _vm._v(
+                          "\r\n              mdi-chevron-right\r\n            "
+                        )
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.$refs.calendar
+                    ? _c("v-toolbar-title", [
+                        _vm._v(
+                          "\r\n            " +
+                            _vm._s(_vm.$refs.calendar.title) +
+                            "\r\n          "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-menu",
+                    {
+                      attrs: { bottom: "", right: "" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "activator",
+                          fn: function(ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._g(
+                                  _vm._b(
+                                    {
+                                      attrs: {
+                                        outlined: "",
+                                        color: "grey darken-2"
+                                      }
+                                    },
+                                    "v-btn",
+                                    attrs,
+                                    false
+                                  ),
+                                  on
+                                ),
+                                [
+                                  _c("span", [
+                                    _vm._v(_vm._s(_vm.typeToLabel[_vm.type]))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-icon", { attrs: { right: "" } }, [
+                                    _vm._v(
+                                      "\r\n                  mdi-menu-down\r\n                "
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    },
+                    [
+                      _vm._v(" "),
+                      _c(
+                        "v-list",
+                        [
+                          _c(
+                            "v-list-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.type = "day"
+                                }
+                              }
+                            },
+                            [_c("v-list-item-title", [_vm._v("Day")])],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.type = "week"
+                                }
+                              }
+                            },
+                            [_c("v-list-item-title", [_vm._v("Week")])],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.type = "month"
+                                }
+                              }
+                            },
+                            [_c("v-list-item-title", [_vm._v("Month")])],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.type = "4day"
+                                }
+                              }
+                            },
+                            [_c("v-list-item-title", [_vm._v("4 days")])],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-sheet",
+            { attrs: { height: "600", width: "1000" } },
+            [
+              _c("v-calendar", {
+                ref: "calendar",
+                attrs: {
+                  color: "indigo",
+                  events: _vm.events,
+                  "event-color": _vm.getEventColor,
+                  type: _vm.type
+                },
+                on: {
+                  "click:event": _vm.showEvent,
+                  "click:more": _vm.viewDay,
+                  "click:date": _vm.viewDay,
+                  change: _vm.updateRange
+                },
+                model: {
+                  value: _vm.focus,
+                  callback: function($$v) {
+                    _vm.focus = $$v
+                  },
+                  expression: "focus"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-menu",
+                {
+                  attrs: {
+                    "close-on-content-click": false,
+                    activator: _vm.selectedElement,
+                    "offset-x": ""
+                  },
+                  model: {
+                    value: _vm.selectedOpen,
+                    callback: function($$v) {
+                      _vm.selectedOpen = $$v
+                    },
+                    expression: "selectedOpen"
+                  }
+                },
+                [
+                  _c(
+                    "v-card",
+                    {
+                      attrs: {
+                        color: "grey lighten-4",
+                        "min-width": "350px",
+                        flat: ""
+                      }
+                    },
+                    [
+                      _c(
+                        "v-toolbar",
+                        { attrs: { color: _vm.selectedEvent.color, dark: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            { attrs: { icon: "" } },
+                            [_c("v-icon", [_vm._v("mdi-pencil")])],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-toolbar-title", {
+                            domProps: {
+                              innerHTML: _vm._s(_vm.selectedEvent.name)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            { attrs: { icon: "" } },
+                            [_c("v-icon", [_vm._v("mdi-heart")])],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            { attrs: { icon: "" } },
+                            [_c("v-icon", [_vm._v("mdi-dots-vertical")])],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-card-text", [
+                        _c("span", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.selectedEvent.details)
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { text: "", color: "indigo" },
+                              on: {
+                                click: function($event) {
+                                  _vm.selectedOpen = false
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                Cancel\r\n              "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Panel.vue?vue&type=template&id=59f752ae&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Panel.vue?vue&type=template&id=59f752ae& ***!
@@ -3455,7 +4209,7 @@ var render = function() {
                 [
                   _c(
                     "v-list-item",
-                    { attrs: { link: "" } },
+                    { attrs: { link: "", to: "/dashboard/projects" } },
                     [
                       _c(
                         "v-list-item-action",
@@ -3465,7 +4219,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-list-item-content",
-                        [_c("v-list-item-title", [_vm._v("Home")])],
+                        [_c("v-list-item-title", [_vm._v("Projects")])],
                         1
                       )
                     ],
@@ -3474,17 +4228,18 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-list-item",
-                    { attrs: { link: "" } },
+                    { attrs: { link: "", to: "/dashboard/calender" } },
                     [
-                      _c(
-                        "v-list-item-action",
-                        [_c("v-icon", [_vm._v("mdi-email")])],
-                        1
-                      ),
+                      _c("v-list-item-action", [
+                        _c("i", {
+                          staticClass: "fa fa-calendar",
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ]),
                       _vm._v(" "),
                       _c(
                         "v-list-item-content",
-                        [_c("v-list-item-title", [_vm._v("Contact")])],
+                        [_c("v-list-item-title", [_vm._v("Calender")])],
                         1
                       )
                     ],
@@ -3543,55 +4298,8 @@ var render = function() {
                 [
                   _c(
                     "v-row",
-                    { attrs: { align: "center", justify: "center" } },
-                    [
-                      _c(
-                        "v-col",
-                        { staticClass: "text-center" },
-                        [
-                          _c(
-                            "v-tooltip",
-                            {
-                              attrs: { left: "" },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "activator",
-                                  fn: function(ref) {
-                                    var on = ref.on
-                                    return [
-                                      _c(
-                                        "v-btn",
-                                        _vm._g(
-                                          {
-                                            attrs: {
-                                              href: _vm.source,
-                                              icon: "",
-                                              large: "",
-                                              target: "_blank"
-                                            }
-                                          },
-                                          on
-                                        ),
-                                        [
-                                          _c(
-                                            "v-icon",
-                                            { attrs: { large: "" } },
-                                            [_vm._v("mdi-code-tags")]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  }
-                                }
-                              ])
-                            },
-                            [_vm._v(" "), _c("span", [_vm._v("Source")])]
-                          )
-                        ],
-                        1
-                      )
-                    ],
+                    { attrs: { justify: "center" } },
+                    [_c("router-view")],
                     1
                   )
                 ],
@@ -3606,6 +4314,241 @@ var render = function() {
               _vm._v("© " + _vm._s(new Date().getFullYear()))
             ])
           ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Projects.vue?vue&type=template&id=49f2f4c0&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Projects.vue?vue&type=template&id=49f2f4c0& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    [
+      _c(
+        "v-row",
+        { attrs: { justify: "center" } },
+        [
+          _c(
+            "v-col",
+            [
+              _c(
+                "v-card",
+                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
+                [
+                  _c(
+                    "v-img",
+                    {
+                      staticClass: "white--text align-end",
+                      attrs: {
+                        height: "200px",
+                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                      }
+                    },
+                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
+                    _vm._v("Number 10")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-text", { staticClass: "text--primary" }, [
+                    _c("div", [_vm._v("Whitehaven Beach")]),
+                    _vm._v(" "),
+                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Share\r\n      ")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Explore\r\n      ")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            [
+              _c(
+                "v-card",
+                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
+                [
+                  _c(
+                    "v-img",
+                    {
+                      staticClass: "white--text align-end",
+                      attrs: {
+                        height: "200px",
+                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                      }
+                    },
+                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
+                    _vm._v("Number 10")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-text", { staticClass: "text--primary" }, [
+                    _c("div", [_vm._v("Whitehaven Beach")]),
+                    _vm._v(" "),
+                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Share\r\n      ")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Explore\r\n      ")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            [
+              _c(
+                "v-card",
+                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
+                [
+                  _c(
+                    "v-img",
+                    {
+                      staticClass: "white--text align-end",
+                      attrs: {
+                        height: "200px",
+                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                      }
+                    },
+                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
+                    _vm._v("Number 10")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-text", { staticClass: "text--primary" }, [
+                    _c("div", [_vm._v("Whitehaven Beach")]),
+                    _vm._v(" "),
+                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Share\r\n      ")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Explore\r\n      ")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            [
+              _c(
+                "v-card",
+                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
+                [
+                  _c(
+                    "v-img",
+                    {
+                      staticClass: "white--text align-end",
+                      attrs: {
+                        height: "200px",
+                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                      }
+                    },
+                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
+                    _vm._v("Number 10")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-text", { staticClass: "text--primary" }, [
+                    _c("div", [_vm._v("Whitehaven Beach")]),
+                    _vm._v(" "),
+                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Share\r\n      ")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
+                        _vm._v("\r\n        Explore\r\n      ")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )
@@ -62886,6 +63829,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/dashboard/Calender.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/dashboard/Calender.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Calender_vue_vue_type_template_id_02b53800___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Calender.vue?vue&type=template&id=02b53800& */ "./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800&");
+/* harmony import */ var _Calender_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Calender.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Calender_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Calender_vue_vue_type_template_id_02b53800___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Calender_vue_vue_type_template_id_02b53800___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/dashboard/Calender.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Calender_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Calender.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Calender_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Calender_vue_vue_type_template_id_02b53800___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Calender.vue?vue&type=template&id=02b53800& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Calender_vue_vue_type_template_id_02b53800___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Calender_vue_vue_type_template_id_02b53800___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/dashboard/Panel.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/components/dashboard/Panel.vue ***!
@@ -62955,6 +63967,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/dashboard/Projects.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/dashboard/Projects.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Projects_vue_vue_type_template_id_49f2f4c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Projects.vue?vue&type=template&id=49f2f4c0& */ "./resources/js/components/dashboard/Projects.vue?vue&type=template&id=49f2f4c0&");
+/* harmony import */ var _Projects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Projects.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard/Projects.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Projects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Projects_vue_vue_type_template_id_49f2f4c0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Projects_vue_vue_type_template_id_49f2f4c0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/dashboard/Projects.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/Projects.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/dashboard/Projects.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Projects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Projects.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Projects.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Projects_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/Projects.vue?vue&type=template&id=49f2f4c0&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/dashboard/Projects.vue?vue&type=template&id=49f2f4c0& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Projects_vue_vue_type_template_id_49f2f4c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Projects.vue?vue&type=template&id=49f2f4c0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Projects.vue?vue&type=template&id=49f2f4c0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Projects_vue_vue_type_template_id_49f2f4c0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Projects_vue_vue_type_template_id_49f2f4c0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -62972,6 +64053,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
 /* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.vue");
 /* harmony import */ var _components_dashboard_Panel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/dashboard/Panel */ "./resources/js/components/dashboard/Panel.vue");
+/* harmony import */ var _components_dashboard_Projects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/dashboard/Projects */ "./resources/js/components/dashboard/Projects.vue");
+/* harmony import */ var _components_dashboard_Calender__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dashboard/Calender */ "./resources/js/components/dashboard/Calender.vue");
+
+
 
 
 
@@ -62994,6 +64079,13 @@ var routes = [{
   path: '/dashboard',
   component: _components_dashboard_Panel__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'dashboard',
+  children: [{
+    path: 'projects',
+    component: _components_dashboard_Projects__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }, {
+    path: 'calender',
+    component: _components_dashboard_Calender__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }],
   beforeEnter: function beforeEnter(to, from, next) {
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/verify_user').then(function (res) {
       if (res.data.api_token == localStorage.getItem('token')) {

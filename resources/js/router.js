@@ -7,6 +7,9 @@ import Register from './components/Register'
 
 import Panel from './components/dashboard/Panel'
 
+import Projects from './components/dashboard/Projects'
+import Calender from './components/dashboard/Calender'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -28,6 +31,16 @@ const routes = [
     path:'/dashboard',
     component:Panel,
     name:'dashboard',
+    children: [
+      {
+        path: 'projects',
+        component: Projects
+      },
+      {
+        path: 'calender',
+        component: Calender
+      },
+    ],
     beforeEnter: (to,from,next) => {
       axios.get('/api/verify_user')
       .then(res => {
