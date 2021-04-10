@@ -1914,6 +1914,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -2878,7 +2898,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-app", [_c("router-view")], 1)
+  return _c(
+    "v-app",
+    [
+      _c(
+        "v-app-bar",
+        { attrs: { app: "", color: "indigo", dark: "" } },
+        [
+          _c("v-toolbar-title", [_vm._v("Project Management Application")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticStyle: { margin: "5px" },
+              attrs: { link: "", to: "/login" }
+            },
+            [_vm._v("\r\n        Login\r\n    ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticStyle: { margin: "5px" },
+              attrs: { link: "", to: "/register" }
+            },
+            [_vm._v("\r\n        Register\r\n    ")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("router-view")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
