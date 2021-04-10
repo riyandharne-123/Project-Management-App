@@ -17,10 +17,6 @@ import router from './router'
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import App from './components/App'
-import Login from './components/Login'
-import Register from './components/Register'
-import Admin from './components/Admin'
-import Roles from './components/Roles'
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -32,9 +28,5 @@ app = new Vue({
     vuetify,
     components:{
     'App':App,
-    'Login':Login,
-    'Register':Register,
-    'Admin':Admin,
-    'Roles':Roles,
     },
 });

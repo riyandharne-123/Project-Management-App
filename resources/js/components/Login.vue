@@ -41,7 +41,7 @@
             >
               <v-card class="elevation-12" >
                 <v-toolbar
-                  color="primary"
+                  color="indigo"
                   flat
                 >
                   <v-toolbar-title style="color:white;">Login</v-toolbar-title>
@@ -59,7 +59,7 @@
                       prepend-icon="mdi-account"
                       type="email"
                       v-model="email"
-                      color="primary"
+                      color="indigo"
                       :rules="emailRules"
                       required
                     ></v-text-field>
@@ -71,7 +71,7 @@
                       prepend-icon="mdi-lock"
                       type="password"
                       v-model="password"
-                       color="primary"
+                       color="indigo"
                         :rules="passwordRules"
                        required
                     ></v-text-field>
@@ -80,12 +80,14 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn 
-                  color="primary" 
+                  color="indigo" 
+                  style="color:white;"
                   :disabled = "!valid"
                    @click='login'
                    >Login</v-btn>
                    <v-btn 
-                  color="primary"
+                  style="color:white;"
+                  color="indigo"
                   link to="/register" 
                    >or Register</v-btn>
                 </v-card-actions>
@@ -143,7 +145,7 @@
               localStorage.setItem('token',res.data.token);
                localStorage.setItem('loggedIn',true);
               //routing to admin panel
-              this.$router.push('/admin').then(
+              this.$router.push('/dashboard').then(
                 res => console.log('logged in')
               ).catch(
                 err => console.warn(err)

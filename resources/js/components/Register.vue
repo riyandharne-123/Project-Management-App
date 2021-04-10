@@ -7,7 +7,7 @@
 
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="primary"
+          color="indigo"
           text
           v-bind="attrs"
           @click="snackbar = false"
@@ -21,7 +21,7 @@
   :indeterminate="loading"
   absolute
   top
-  color="primary accent-4"
+  color="indigo accent-4"
   >
   </v-progress-linear>
       <v-main>
@@ -41,7 +41,8 @@
             >
               <v-card class="elevation-12" >
                 <v-toolbar
-                  color="primary"
+                  color="indigo"
+                  style="color:white"
                   flat
                 >
                   <v-toolbar-title style="color:white;">Register</v-toolbar-title>
@@ -60,7 +61,7 @@
                       prepend-icon="mdi-account"
                       type="text"
                       v-model="name"
-                      color="primary"
+                      color="indigo"
                       required
                     ></v-text-field>
 
@@ -70,7 +71,7 @@
                       prepend-icon="mdi-material-design"
                       type="email"
                       v-model="email"
-                      color="primary"
+                      color="indigo"
                       :rules="emailRules"
                       required
                     ></v-text-field>
@@ -82,7 +83,7 @@
                       prepend-icon="mdi-lock"
                       type="password"
                       v-model="password"
-                       color="primary"
+                       color="indigo"
                         :rules="passwordRules"
                        required
                     ></v-text-field>
@@ -91,12 +92,14 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn 
-                  color="primary" 
+                  color="indigo" 
                   :disabled = "!valid"
                    @click='login'
+                   style="color:white"
                    >Register</v-btn>
                   <v-btn 
-                  color="primary"
+                  color="indigo"
+                  style="color:white"
                   link to="/login" 
                    >or Login</v-btn>
                 </v-card-actions>
@@ -156,7 +159,7 @@
               localStorage.setItem('token',res.data.token);
                localStorage.setItem('loggedIn',true);
               //routing to admin panel
-              this.$router.push('/admin').then(
+              this.$router.push('/dashboard').then(
                 res => console.log('logged in')
               ).catch(
                 err => console.warn(err)
