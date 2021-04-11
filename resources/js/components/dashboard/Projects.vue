@@ -40,7 +40,7 @@
         style="color:white;"
         @click="getProject(project.id)"
       >
-        Delete Project
+        Delete Project <i class="fa fa-trash"></i>
       </v-btn>
 
     </v-card-actions>

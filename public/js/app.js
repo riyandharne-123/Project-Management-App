@@ -4583,7 +4583,10 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("\r\n        Delete Project\r\n      ")]
+                            [
+                              _vm._v("\r\n        Delete Project "),
+                              _c("i", { staticClass: "fa fa-trash" })
+                            ]
                           )
                         ],
                         1
