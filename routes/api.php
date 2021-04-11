@@ -20,4 +20,5 @@ Route::post('/register','Api\UserController@register')->name('register');
 
 Route::group(['middleware' => ['auth:api'], 'namespace' => 'Api'],function(){
     Route::get('/verify_user','UserController@verify');
+    Route::resource('projects','ProjectController');
 });

@@ -2296,6 +2296,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alerts/Alert.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/alerts/Alert.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['display', 'text']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Calender.vue?vue&type=script&lang=js& ***!
@@ -2643,6 +2675,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _alerts_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../alerts/Alert */ "./resources/js/components/alerts/Alert.vue");
 //
 //
 //
@@ -2804,16 +2839,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Alert: _alerts_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
-      count: 10
+      projects: [],
+      dialog: false,
+      name: "",
+      description: "",
+      items: ["https://cdn.vuetifyjs.com/images/parallax/material.jpg", "https://cdn.vuetifyjs.com/images/parallax/material2.jpg", "https://picsum.photos/500/300?image=25", "https://picsum.photos/500/300?image=30", "https://picsum.photos/500/300?image=35"],
+      image: "",
+      alert: false,
+      alert_text: "",
+      project: [],
+      delete_dialog: false
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/projects').then(function (res) {
+      _this.projects = res.data.projects;
+    });
+  },
+  methods: {
+    addProject: function addProject() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/projects', {
+        'name': this.name,
+        'description': this.description,
+        'image': this.image
+      }).then(function (res) {
+        _this2.projects = res.data.projects;
+        _this2.dialog = false;
+        _this2.name = "";
+        _this2.description = "";
+        _this2.image = "";
+        _this2.alert = true;
+        _this2.alert_text = "Project Created!";
+      })["catch"](function (err) {
+        _this2.dialog = false;
+        _this2.alert = true;
+        _this2.alert_text = "Error!";
+        _this2.name = "";
+        _this2.description = "";
+        _this2.image = "";
+      });
+    },
+    getProject: function getProject(id) {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/projects/".concat(id)).then(function (res) {
+        _this3.project = res.data.project;
+        _this3.delete_dialog = true;
+      })["catch"](function (err) {
+        console.warn(err);
+      });
+    },
+    deleteProject: function deleteProject(id) {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/projects/".concat(id)).then(function (res) {
+        _this4.projects = res.data.projects;
+        _this4.delete_dialog = false;
+        _this4.alert = true;
+        _this4.alert_text = "Project Deleted!";
+      })["catch"](function (err) {
+        console.warn(err);
+      });
+    }
   }
 });
 
@@ -3817,6 +3916,56 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alerts/Alert.vue?vue&type=template&id=ac95bce2&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/alerts/Alert.vue?vue&type=template&id=ac95bce2& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-alert",
+        {
+          attrs: {
+            dismissible: "",
+            "close-icon": "mdi-delete",
+            color: "indigo",
+            border: "left",
+            elevation: "2",
+            "colored-border": ""
+          },
+          model: {
+            value: _vm.display,
+            callback: function($$v) {
+              _vm.display = $$v
+            },
+            expression: "display"
+          }
+        },
+        [_vm._v("\n   " + _vm._s(_vm.text) + "\n  ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Calender.vue?vue&type=template&id=02b53800& ***!
@@ -4346,202 +4495,359 @@ var render = function() {
   return _c(
     "v-app",
     [
+      _c("Alert", {
+        staticStyle: { margin: "10px" },
+        attrs: { display: _vm.alert, text: _vm.alert_text }
+      }),
+      _vm._v(" "),
       _c(
         "v-row",
         { attrs: { justify: "center" } },
+        _vm._l(_vm.projects, function(project) {
+          return _c(
+            "div",
+            { key: project.id },
+            [
+              _c(
+                "v-col",
+                [
+                  _c(
+                    "v-card",
+                    { staticClass: "mx-auto", attrs: { "max-width": "400" } },
+                    [
+                      _c(
+                        "v-img",
+                        {
+                          staticClass: "white--text align-end",
+                          attrs: { height: "200px", src: project.image }
+                        },
+                        [_c("v-card-title", [_vm._v(_vm._s(project.name))])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-card-text", { staticClass: "text--primary" }, [
+                        _c("div", [_vm._v(_vm._s(project.description))])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c(
+                            "v-btn",
+                            { attrs: { color: "indigo", text: "" } },
+                            [_vm._v("\r\n        View Tasks\r\n      ")]
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              staticStyle: { color: "white" },
+                              attrs: { color: "indigo" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.getProject(project.id)
+                                }
+                              }
+                            },
+                            [_vm._v("\r\n        Delete Project\r\n      ")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "v-btn",
+        {
+          attrs: {
+            bottom: "",
+            color: "red",
+            dark: "",
+            fab: "",
+            fixed: "",
+            right: ""
+          },
+          on: {
+            click: function($event) {
+              _vm.dialog = !_vm.dialog
+            }
+          }
+        },
+        [_c("v-icon", [_vm._v("mdi-plus")])],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "800px" },
+          model: {
+            value: _vm.dialog,
+            callback: function($$v) {
+              _vm.dialog = $$v
+            },
+            expression: "dialog"
+          }
+        },
         [
           _c(
-            "v-col",
+            "v-card",
             [
               _c(
-                "v-card",
-                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
+                "v-card-title",
+                { staticClass: "indigo", staticStyle: { color: "white" } },
+                [_vm._v("\r\n      Create Project\r\n    ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-container",
                 [
                   _c(
-                    "v-img",
-                    {
-                      staticClass: "white--text align-end",
-                      attrs: {
-                        height: "200px",
-                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                      }
-                    },
-                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
+                    "v-row",
+                    { staticClass: "mx-2" },
+                    [
+                      _c(
+                        "v-col",
+                        {
+                          staticClass: "align-center justify-space-between",
+                          attrs: { cols: "12" }
+                        },
+                        [
+                          _c(
+                            "v-row",
+                            { staticClass: "mr-0", attrs: { align: "center" } },
+                            [
+                              _c(
+                                "v-avatar",
+                                {
+                                  staticClass: "mx-3",
+                                  attrs: { size: "40px" }
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src:
+                                        "//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png",
+                                      alt: ""
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: { placeholder: "Name", required: "" },
+                                model: {
+                                  value: _vm.name,
+                                  callback: function($$v) {
+                                    _vm.name = $$v
+                                  },
+                                  expression: "name"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c("v-textarea", {
+                            staticClass: "mx-2",
+                            attrs: {
+                              placeholder: "Description",
+                              rows: "1",
+                              "prepend-icon": "mdi-comment",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.description,
+                              callback: function($$v) {
+                                _vm.description = $$v
+                              },
+                              expression: "description"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
-                    _vm._v("Number 10")
-                  ]),
-                  _vm._v(" "),
-                  _c("v-card-text", { staticClass: "text--primary" }, [
-                    _c("div", [_vm._v("Whitehaven Beach")]),
-                    _vm._v(" "),
-                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "v-card-actions",
+                    "v-row",
                     [
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Share\r\n      ")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Explore\r\n      ")
-                      ])
+                      _c(
+                        "v-col",
+                        [
+                          _c("v-select", {
+                            attrs: { items: _vm.items, label: "Images" },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "selection",
+                                fn: function(ref) {
+                                  var item = ref.item
+                                  return [
+                                    _c(
+                                      "v-container",
+                                      { attrs: { fluid: "" } },
+                                      [
+                                        _c("v-img", {
+                                          attrs: { src: item, height: "100" }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                }
+                              },
+                              {
+                                key: "item",
+                                fn: function(ref) {
+                                  var item = ref.item
+                                  return [
+                                    _c(
+                                      "v-container",
+                                      { attrs: { fluid: "" } },
+                                      [
+                                        _c("v-img", {
+                                          attrs: { src: item, height: "100" }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                }
+                              }
+                            ]),
+                            model: {
+                              value: _vm.image,
+                              callback: function($$v) {
+                                _vm.image = $$v
+                              },
+                              expression: "image"
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { text: "", color: "primary" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { text: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.addProject()
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
                   )
                 ],
                 1
               )
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { persistent: "", "max-width": "290" },
+          model: {
+            value: _vm.delete_dialog,
+            callback: function($$v) {
+              _vm.delete_dialog = $$v
+            },
+            expression: "delete_dialog"
+          }
+        },
+        [
           _c(
-            "v-col",
+            "v-card",
             [
+              _c("v-card-title", { staticClass: "headline" }, [
+                _vm._v(
+                  "Do you wantto delete Project " +
+                    _vm._s(_vm.project.name) +
+                    " ?"
+                )
+              ]),
+              _vm._v(" "),
               _c(
-                "v-card",
-                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
+                "v-card-actions",
                 [
+                  _c("v-spacer"),
+                  _vm._v(" "),
                   _c(
-                    "v-img",
+                    "v-btn",
                     {
-                      staticClass: "white--text align-end",
-                      attrs: {
-                        height: "200px",
-                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                      attrs: { color: "indigo darken-1", text: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.delete_dialog = false
+                        }
                       }
                     },
-                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
-                    1
+                    [_vm._v("Disagree")]
                   ),
                   _vm._v(" "),
-                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
-                    _vm._v("Number 10")
-                  ]),
-                  _vm._v(" "),
-                  _c("v-card-text", { staticClass: "text--primary" }, [
-                    _c("div", [_vm._v("Whitehaven Beach")]),
-                    _vm._v(" "),
-                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "v-card-actions",
-                    [
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Share\r\n      ")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Explore\r\n      ")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-col",
-            [
-              _c(
-                "v-card",
-                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
-                [
-                  _c(
-                    "v-img",
+                    "v-btn",
                     {
-                      staticClass: "white--text align-end",
-                      attrs: {
-                        height: "200px",
-                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                      attrs: { color: "indigo darken-1", text: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteProject(_vm.project.id)
+                        }
                       }
                     },
-                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
-                    _vm._v("Number 10")
-                  ]),
-                  _vm._v(" "),
-                  _c("v-card-text", { staticClass: "text--primary" }, [
-                    _c("div", [_vm._v("Whitehaven Beach")]),
-                    _vm._v(" "),
-                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Share\r\n      ")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Explore\r\n      ")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-col",
-            [
-              _c(
-                "v-card",
-                { staticClass: "mx-auto", attrs: { "max-width": "400" } },
-                [
-                  _c(
-                    "v-img",
-                    {
-                      staticClass: "white--text align-end",
-                      attrs: {
-                        height: "200px",
-                        src: "https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                      }
-                    },
-                    [_c("v-card-title", [_vm._v("Top 10 Australian beaches")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("v-card-subtitle", { staticClass: "pb-0" }, [
-                    _vm._v("Number 10")
-                  ]),
-                  _vm._v(" "),
-                  _c("v-card-text", { staticClass: "text--primary" }, [
-                    _c("div", [_vm._v("Whitehaven Beach")]),
-                    _vm._v(" "),
-                    _c("div", [_vm._v("Whitsunday Island, Whitsunday Islands")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Share\r\n      ")
-                      ]),
-                      _vm._v(" "),
-                      _c("v-btn", { attrs: { color: "orange", text: "" } }, [
-                        _vm._v("\r\n        Explore\r\n      ")
-                      ])
-                    ],
-                    1
+                    [_vm._v("Agree")]
                   )
                 ],
                 1
@@ -63824,6 +64130,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_97358ae4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_97358ae4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/alerts/Alert.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/alerts/Alert.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Alert_vue_vue_type_template_id_ac95bce2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alert.vue?vue&type=template&id=ac95bce2& */ "./resources/js/components/alerts/Alert.vue?vue&type=template&id=ac95bce2&");
+/* harmony import */ var _Alert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alert.vue?vue&type=script&lang=js& */ "./resources/js/components/alerts/Alert.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Alert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Alert_vue_vue_type_template_id_ac95bce2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Alert_vue_vue_type_template_id_ac95bce2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/alerts/Alert.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/alerts/Alert.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/alerts/Alert.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Alert.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alerts/Alert.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/alerts/Alert.vue?vue&type=template&id=ac95bce2&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/alerts/Alert.vue?vue&type=template&id=ac95bce2& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_template_id_ac95bce2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Alert.vue?vue&type=template&id=ac95bce2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/alerts/Alert.vue?vue&type=template&id=ac95bce2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_template_id_ac95bce2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Alert_vue_vue_type_template_id_ac95bce2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
