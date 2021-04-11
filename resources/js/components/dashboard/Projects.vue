@@ -24,12 +24,14 @@
 
     <v-card-actions>
 
+    <router-link :to='"/dashboard/tasks/"+project.project_url'>
       <v-btn
         color="indigo"
         text
       >
         View Tasks
       </v-btn>
+    </router-link>
       
       <v-spacer></v-spacer>
 

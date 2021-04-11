@@ -10,6 +10,8 @@ import Panel from './components/dashboard/Panel'
 import Projects from './components/dashboard/Projects'
 import Calender from './components/dashboard/Calender'
 
+import Tasks from './components/dashboard/tasks/Task'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -34,11 +36,15 @@ const routes = [
     children: [
       {
         path: 'projects',
-        component: Projects
+        component: Projects,
       },
       {
         path: 'calender',
         component: Calender
+      },
+      {
+        path: 'tasks/:project_url',
+        component: Tasks
       },
     ],
     beforeEnter: (to,from,next) => {
