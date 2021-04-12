@@ -94,9 +94,24 @@ class TaskController extends Controller
     public function update_task(Request $request, $id)
     {
 
-        $task = Task::find($id);
-        $task->status = $request->status;
-        $task->save();
+        $project = Project::where('project_url',$request->project_url)->first();
+
+        $task_single = Task::find($id);
+        $task_single->status = $request->status;
+        $task_single->save();
+
+        $tasks = Task::where('user_id',Auth::user()->id)->
+            where('project_id',$project->id)->
+            where('status',$request->status)->get();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+            foreach ($request->tasks as $tasksNew) {
+                if ($tasksNew['id'] == $id) {
+                    $task->update(['id' => $tasksNew['id']]);
+                }
+            }
+        }
 
     }
 

@@ -144,6 +144,7 @@ export default {
                 axios.post(`/api/tasks/update/${todo.id}`,{
                     'project_url': this.$route.params.project_url,
                     'status': 0,
+                    'tasks': value,
                 }).then(res =>{
                     console.log(res.data)
                 })
@@ -152,14 +153,18 @@ export default {
         doing(value){
             value.map(todo =>{
                 axios.post(`/api/tasks/update/${todo.id}`,{
+                    'project_url': this.$route.params.project_url,
                     'status': 1,
+                    'tasks': value,
                 })
             })
         },
         done(value){
             value.map(todo =>{
                 axios.post(`/api/tasks/update/${todo.id}`,{
+                    'project_url': this.$route.params.project_url,
                     'status': 2,
+                    'tasks': value,
                 })
             })
         },

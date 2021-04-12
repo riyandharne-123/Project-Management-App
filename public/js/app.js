@@ -3078,36 +3078,45 @@ __webpack_require__.r(__webpack_exports__);
       value.map(function (todo) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/tasks/update/".concat(todo.id), {
           'project_url': _this.$route.params.project_url,
-          'status': 0
+          'status': 0,
+          'tasks': value
         }).then(function (res) {
           console.log(res.data);
         });
       });
     },
     doing: function doing(value) {
+      var _this2 = this;
+
       value.map(function (todo) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/tasks/update/".concat(todo.id), {
-          'status': 1
+          'project_url': _this2.$route.params.project_url,
+          'status': 1,
+          'tasks': value
         });
       });
     },
     done: function done(value) {
+      var _this3 = this;
+
       value.map(function (todo) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/tasks/update/".concat(todo.id), {
-          'status': 2
+          'project_url': _this3.$route.params.project_url,
+          'status': 2,
+          'tasks': value
         });
       });
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this4 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/project/tasks', {
       'project_url': this.$route.params.project_url
     }).then(function (res) {
-      _this2.todo = res.data.todo;
-      _this2.doing = res.data.doing;
-      _this2.done = res.data.done;
+      _this4.todo = res.data.todo;
+      _this4.doing = res.data.doing;
+      _this4.done = res.data.done;
     });
   }
 });
