@@ -3068,7 +3068,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       todo: [],
       doing: [],
-      done: []
+      done: [],
+      old: '',
+      "new": ''
     };
   },
   watch: {
@@ -3078,10 +3080,7 @@ __webpack_require__.r(__webpack_exports__);
       value.map(function (todo) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/tasks/update/".concat(todo.id), {
           'project_url': _this.$route.params.project_url,
-          'status': 0,
-          'tasks': value
-        }).then(function (res) {
-          console.log(res.data);
+          'status': 0
         });
       });
     },
@@ -3091,8 +3090,7 @@ __webpack_require__.r(__webpack_exports__);
       value.map(function (todo) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/tasks/update/".concat(todo.id), {
           'project_url': _this2.$route.params.project_url,
-          'status': 1,
-          'tasks': value
+          'status': 1
         });
       });
     },
@@ -3102,9 +3100,46 @@ __webpack_require__.r(__webpack_exports__);
       value.map(function (todo) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/tasks/update/".concat(todo.id), {
           'project_url': _this3.$route.params.project_url,
-          'status': 2,
-          'tasks': value
+          'status': 2
         });
+      });
+    }
+  },
+  methods: {
+    checkTodoMove: function checkTodoMove(evt) {
+      this.old = evt.oldIndex;
+      this["new"] = evt.newIndex;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/update/position", {
+        'project_url': this.$route.params.project_url,
+        'status': 0,
+        "old": evt.oldIndex,
+        "new": evt.newIndex
+      })["catch"](function (err) {
+        console.warn(err);
+      });
+    },
+    checkDoingMove: function checkDoingMove(evt) {
+      this.old = evt.oldIndex;
+      this["new"] = evt.newIndex;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/update/position", {
+        'project_url': this.$route.params.project_url,
+        'status': 1,
+        "old": evt.oldIndex,
+        "new": evt.newIndex
+      })["catch"](function (err) {
+        console.warn(err);
+      });
+    },
+    checkDoneMove: function checkDoneMove(evt) {
+      this.old = evt.oldIndex;
+      this["new"] = evt.newIndex;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/update/position", {
+        'project_url': this.$route.params.project_url,
+        'status': 2,
+        "old": evt.oldIndex,
+        "new": evt.newIndex
+      })["catch"](function (err) {
+        console.warn(err);
       });
     }
   },
@@ -9508,8 +9543,9 @@ var render = function() {
                                 list: _vm.todo,
                                 group: "todosapp",
                                 ghostClass: "on-drag",
-                                animation: "400"
-                              }
+                                animation: "300"
+                              },
+                              on: { end: _vm.checkTodoMove }
                             },
                             _vm._l(_vm.todo, function(task) {
                               return _c(
@@ -9604,8 +9640,9 @@ var render = function() {
                                 list: _vm.doing,
                                 group: "todosapp",
                                 ghostClass: "on-drag",
-                                animation: "400"
-                              }
+                                animation: "300"
+                              },
+                              on: { end: _vm.checkDoingMove }
                             },
                             _vm._l(_vm.doing, function(task) {
                               return _c(
@@ -9700,8 +9737,9 @@ var render = function() {
                                 list: _vm.done,
                                 group: "todosapp",
                                 ghostClass: "on-drag",
-                                animation: "400"
-                              }
+                                animation: "300"
+                              },
+                              on: { end: _vm.checkDoneMove }
                             },
                             _vm._l(_vm.done, function(task) {
                               return _c(
@@ -69347,15 +69385,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************!*\
   !*** ./resources/js/components/dashboard/tasks/Task.vue ***!
   \**********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Task_vue_vue_type_template_id_37fc3e2c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Task.vue?vue&type=template&id=37fc3e2c&scoped=true& */ "./resources/js/components/dashboard/tasks/Task.vue?vue&type=template&id=37fc3e2c&scoped=true&");
 /* harmony import */ var _Task_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Task.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard/tasks/Task.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Task_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Task_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Task_vue_vue_type_style_index_0_id_37fc3e2c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Task.vue?vue&type=style&index=0&id=37fc3e2c&scoped=true&lang=css& */ "./resources/js/components/dashboard/tasks/Task.vue?vue&type=style&index=0&id=37fc3e2c&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Task_vue_vue_type_style_index_0_id_37fc3e2c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Task.vue?vue&type=style&index=0&id=37fc3e2c&scoped=true&lang=css& */ "./resources/js/components/dashboard/tasks/Task.vue?vue&type=style&index=0&id=37fc3e2c&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -69387,7 +69424,7 @@ component.options.__file = "resources/js/components/dashboard/tasks/Task.vue"
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/dashboard/tasks/Task.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

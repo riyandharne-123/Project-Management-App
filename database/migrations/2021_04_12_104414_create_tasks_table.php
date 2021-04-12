@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('project_id');
             $table->string('user_id');
+            $table->integer('order')->default(1);
             $table->string('name');
             $table->longText('description');
             $table->string('color');

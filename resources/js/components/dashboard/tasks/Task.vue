@@ -10,7 +10,7 @@
                 <p class="display-1 text--primary">
                     Todo
                 </p>
-                <draggable :list="todo" group="todosapp" ghostClass="on-drag" animation="400">
+                <draggable :list="todo" group="todosapp" ghostClass="on-drag" @end="checkTodoMove" animation="300">
                     <div class="text--primary" v-for="task in todo" :key="task.id" :item="task">
                             <v-alert class="move"
                             :color="task.color"
@@ -49,7 +49,7 @@
                 <p class="display-1 text--primary">
                     Doing
                 </p>
-                <draggable :list="doing" group="todosapp" ghostClass="on-drag" animation="400">
+                <draggable :list="doing" group="todosapp" ghostClass="on-drag" @end="checkDoingMove" animation="300">
                     <div class="text--primary" v-for="task in doing " :key="task.id" :item="task">
                             <v-alert class="move"
                             :color="task.color"
@@ -88,7 +88,7 @@
                 <p class="display-1 text--primary">
                     Done
                 </p>
-                <draggable :list="done" group="todosapp" ghostClass="on-drag" animation="400">
+                <draggable :list="done" group="todosapp" ghostClass="on-drag" @end="checkDoneMove" animation="300">
                     <div class="text-primary" v-for="task in done" :key="task.id" :item="task">
                             <v-alert class="move"
                             :color="task.color"
@@ -136,6 +136,8 @@ export default {
             todo: [],
             doing: [],
             done: [],
+            old:'',
+            new:'',
         }
     },
     watch:{
@@ -144,9 +146,6 @@ export default {
                 axios.post(`/api/tasks/update/${todo.id}`,{
                     'project_url': this.$route.params.project_url,
                     'status': 0,
-                    'tasks': value,
-                }).then(res =>{
-                    console.log(res.data)
                 })
             })
         },
@@ -155,7 +154,6 @@ export default {
                 axios.post(`/api/tasks/update/${todo.id}`,{
                     'project_url': this.$route.params.project_url,
                     'status': 1,
-                    'tasks': value,
                 })
             })
         },
@@ -164,8 +162,48 @@ export default {
                 axios.post(`/api/tasks/update/${todo.id}`,{
                     'project_url': this.$route.params.project_url,
                     'status': 2,
-                    'tasks': value,
                 })
+            })
+        },
+    },
+    methods:{
+        checkTodoMove: function(evt){
+            this.old = evt.oldIndex;
+            this.new = evt.newIndex;
+            axios.post(`/api/update/position`,{
+                'project_url': this.$route.params.project_url,
+                'status': 0,
+                "old": evt.oldIndex,
+                "new": evt.newIndex,
+            })
+            .catch(err =>{
+                console.warn(err)
+            })
+        },
+        checkDoingMove: function(evt){
+            this.old = evt.oldIndex;
+            this.new = evt.newIndex;
+            axios.post(`/api/update/position`,{
+                'project_url': this.$route.params.project_url,
+                'status': 1,
+                "old": evt.oldIndex,
+                "new": evt.newIndex,
+            })
+            .catch(err =>{
+                console.warn(err)
+            })
+        },
+        checkDoneMove: function(evt){
+            this.old = evt.oldIndex;
+            this.new = evt.newIndex;
+            axios.post(`/api/update/position`,{
+                'project_url': this.$route.params.project_url,
+                'status': 2,
+                "old": evt.oldIndex,
+                "new": evt.newIndex,
+            })
+            .catch(err =>{
+                console.warn(err)
             })
         },
     },
