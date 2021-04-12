@@ -188,7 +188,7 @@ export default {
           delete_dialog: false,
         }
     },
-    created:function(){
+    mounted:function(){
       axios.get('/api/projects')
        .then(res => {
          this.projects = res.data.projects        

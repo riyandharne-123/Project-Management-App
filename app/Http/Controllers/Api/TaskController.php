@@ -19,17 +19,17 @@ class TaskController extends Controller
     {
         $project = Project::where('project_url',$request->project_url)->first();
 
-        $todo = Task::orderBy('created_at', 'DESC')->
+        $todo = Task::orderBy('id', 'DESC')->
             where('user_id',Auth::user()->id)->
             where('project_id',$project->id)->
             where('status',0)->get();
 
-        $doing = Task::orderBy('created_at', 'DESC')->
+        $doing = Task::orderBy('id', 'DESC')->
             where('user_id',Auth::user()->id)->
             where('project_id',$project->id)->
             where('status',1)->get();
 
-        $done = Task::orderBy('created_at', 'DESC')->
+        $done = Task::orderBy('id', 'DESC')->
             where('user_id',Auth::user()->id)->
             where('project_id',$project->id)->
             where('status',2)->get();
@@ -91,9 +91,13 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_task(Request $request, $id)
     {
-        //
+
+        $task = Task::find($id);
+        $task->status = $request->status;
+        $task->save();
+
     }
 
     /**
