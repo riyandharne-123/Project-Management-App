@@ -69,7 +69,7 @@ class TaskController extends Controller
     {
         $project = Project::where('project_url',$request->project_url)->first();
 
-        $tasks = Tasks::where('project_id',$project->id)->last();
+        $tasks = Task::where('project_id',$project->id)->orderBy('id', 'desc')->first();
 
         $order = 0;
 
@@ -92,7 +92,7 @@ class TaskController extends Controller
             'description' => $request->description,
             'color' => $request->color,
             'start' => $request->start_date,
-            'end' => $return->end_date
+            'end' => $request->end_date
         ]);
     }
 
@@ -104,7 +104,9 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json([
+            'task' => Task::find($id),
+        ], 200);
     }
 
     /**
@@ -122,15 +124,11 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
         $task->update([
-            'user_id' => Auth::user()->id,
-            'project_id' => $task->project_id,
-            'order' => $task->order,
-            'status' => $task->status,
             'name' => $request->name,
             'description' => $request->description,
             'color' => $request->color,
             'start' => $request->start_date,
-            'end' => $return->end_date
+            'end' => $request->end_date
         ]);
     }
 
@@ -177,6 +175,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
     }
 }

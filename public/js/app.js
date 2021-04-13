@@ -2472,6 +2472,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2920,6 +2926,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _alerts_Alert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../alerts/Alert */ "./resources/js/components/alerts/Alert.vue");
 //
 //
 //
@@ -3045,19 +3052,195 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
+    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a,
+    Alert: _alerts_Alert__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
+      dialog: false,
+      saveOrUpdate: false,
+      start_date_modal: false,
+      end_date_modal: false,
+      name: '',
+      description: '',
+      start_date: '',
+      end_date: '',
+      color: '',
       todo: [],
       doing: [],
       done: [],
       old: '',
-      "new": ''
+      "new": '',
+      alert: false,
+      alert_text: "",
+      updateId: ""
     };
   },
   watch: {
@@ -3128,17 +3311,111 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.warn(err);
       });
+    },
+    addTask: function addTask() {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/tasks', {
+        'project_url': this.$route.params.project_url,
+        'name': this.name,
+        'description': this.description,
+        'start_date': this.start_date,
+        "end_date": this.end_date,
+        "color": this.color
+      }).then(function (res) {
+        _this4.name = "";
+        _this4.description = "";
+        _this4.start_date = "";
+        _this4.end_date = "";
+        _this4.color = "";
+        _this4.alert = true;
+        _this4.alert_text = "Task Created!";
+      })["catch"](function (err) {
+        _this4.dialog = false;
+        _this4.alert = true;
+        _this4.alert_text = "Error!";
+        _this4.name = "";
+        _this4.description = "";
+        _this4.start_date = "";
+        _this4.end_date = "";
+        _this4.color = "";
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/project/tasks', {
+        'project_url': this.$route.params.project_url
+      }).then(function (res) {
+        _this4.todo = res.data.todo;
+        _this4.doing = res.data.doing;
+        _this4.done = res.data.done;
+        _this4.dialog = false;
+      });
+    },
+    deleteTask: function deleteTask(task_id) {
+      var _this5 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/tasks/".concat(task_id)).then(function (res) {
+        _this5.alert = true;
+        _this5.alert_text = "Task Deleted!";
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/project/tasks', {
+        'project_url': this.$route.params.project_url
+      }).then(function (res) {
+        _this5.todo = res.data.todo;
+        _this5.doing = res.data.doing;
+        _this5.done = res.data.done;
+        _this5.name = "";
+        _this5.description = "";
+        _this5.start_date = "";
+        _this5.end_date = "";
+        _this5.color = "";
+      });
+    },
+    getTask: function getTask(task_id) {
+      var _this6 = this;
+
+      this.alert = false;
+      this.saveOrUpdate = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/tasks/".concat(task_id)).then(function (res) {
+        _this6.dialog = true;
+        _this6.name = res.data.task.name;
+        _this6.description = res.data.task.description;
+        _this6.start_date = res.data.task.start;
+        _this6.end_date = res.data.task.end;
+        _this6.color = res.data.task.color;
+        _this6.updateId = res.data.task.id;
+      });
+    },
+    editTask: function editTask() {
+      var _this7 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/tasks/".concat(this.updateId), {
+        'name': this.name,
+        'description': this.description,
+        'start_date': this.start_date,
+        "end_date": this.end_date,
+        "color": this.color
+      }).then(function (res) {
+        _this7.dialog = false;
+        _this7.alert = true;
+        _this7.alert_text = "Task Updated!";
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/project/tasks', {
+        'project_url': this.$route.params.project_url
+      }).then(function (res) {
+        _this7.todo = res.data.todo;
+        _this7.doing = res.data.doing;
+        _this7.done = res.data.done;
+      });
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this8 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/project/tasks', {
       'project_url': this.$route.params.project_url
     }).then(function (res) {
-      _this4.todo = res.data.todo;
-      _this4.doing = res.data.doing;
-      _this4.done = res.data.done;
+      _this8.todo = res.data.todo;
+      _this8.doing = res.data.doing;
+      _this8.done = res.data.done;
     });
   }
 });
@@ -8825,7 +9102,7 @@ var render = function() {
                     [
                       _c(
                         "v-card",
-                        { attrs: { color: "grey lighten-4", flat: "" } },
+                        { attrs: { flat: "" } },
                         [
                           _c(
                             "v-toolbar",
@@ -8854,14 +9131,7 @@ var render = function() {
                               _c(
                                 "v-btn",
                                 { attrs: { icon: "" } },
-                                [_c("v-icon", [_vm._v("mdi-heart")])],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                { attrs: { icon: "" } },
-                                [_c("v-icon", [_vm._v("mdi-dots-vertical")])],
+                                [_c("v-icon", [_vm._v("mdi-trash-can")])],
                                 1
                               )
                             ],
@@ -8869,11 +9139,55 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("v-card-text", [
-                            _c("span", {
-                              domProps: {
-                                innerHTML: _vm._s(_vm.selectedEvent.description)
-                              }
-                            })
+                            _c("h4", [
+                              _vm._v("Description: "),
+                              _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.selectedEvent.description
+                                  )
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("h4", [
+                              _vm._v("Status:\r\n                     "),
+                              _vm.selectedEvent.status == 0
+                                ? _c("span", { staticClass: "red--text" }, [
+                                    _vm._v("Todo")
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.selectedEvent.status == 1
+                                ? _c("span", { staticClass: "yellow--text" }, [
+                                    _vm._v("Doing")
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.selectedEvent.status == 2
+                                ? _c("span", { staticClass: "green--text" }, [
+                                    _vm._v("Done")
+                                  ])
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                "Start Date: " + _vm._s(_vm.selectedEvent.start)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                "End Date: " + _vm._s(_vm.selectedEvent.end)
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
                           _c(
@@ -8987,12 +9301,11 @@ var render = function() {
                     "v-list-item",
                     { attrs: { link: "", to: "/dashboard/calender" } },
                     [
-                      _c("v-list-item-action", [
-                        _c("i", {
-                          staticClass: "fa fa-calendar",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      ]),
+                      _c(
+                        "v-list-item-action",
+                        [_c("v-icon", [_vm._v("mdi-table-large")])],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "v-list-item-content",
@@ -9512,6 +9825,11 @@ var render = function() {
       _c(
         "v-container",
         [
+          _c("Alert", {
+            staticStyle: { margin: "10px" },
+            attrs: { display: _vm.alert, text: _vm.alert_text }
+          }),
+          _vm._v(" "),
           _c(
             "v-row",
             { attrs: { justify: "center" } },
@@ -9568,8 +9886,40 @@ var render = function() {
                                         "\r\n                            " +
                                           _vm._s(task.name) +
                                           "\r\n                            "
+                                      ),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { icon: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.getTask(task.id)
+                                            }
+                                          }
+                                        },
+                                        [_c("v-icon", [_vm._v("mdi-pencil")])],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { icon: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteTask(task.id)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("mdi-trash-can")
+                                          ])
+                                        ],
+                                        1
                                       )
-                                    ]
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
@@ -9665,8 +10015,40 @@ var render = function() {
                                         "\r\n                            " +
                                           _vm._s(task.name) +
                                           "\r\n                            "
+                                      ),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { icon: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.getTask(task.id)
+                                            }
+                                          }
+                                        },
+                                        [_c("v-icon", [_vm._v("mdi-pencil")])],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { icon: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteTask(task.id)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("mdi-trash-can")
+                                          ])
+                                        ],
+                                        1
                                       )
-                                    ]
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
@@ -9762,8 +10144,40 @@ var render = function() {
                                         "\r\n                            " +
                                           _vm._s(task.name) +
                                           "\r\n                            "
+                                      ),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { icon: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.getTask(task.id)
+                                            }
+                                          }
+                                        },
+                                        [_c("v-icon", [_vm._v("mdi-pencil")])],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { icon: "" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteTask(task.id)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("mdi-trash-can")
+                                          ])
+                                        ],
+                                        1
                                       )
-                                    ]
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
@@ -9803,6 +10217,466 @@ var render = function() {
                     ],
                     1
                   )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: {
+                bottom: "",
+                color: "red",
+                dark: "",
+                fab: "",
+                fixed: "",
+                right: ""
+              },
+              on: {
+                click: function($event) {
+                  _vm.dialog = !_vm.dialog
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("mdi-plus")])],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "800px" },
+          model: {
+            value: _vm.dialog,
+            callback: function($$v) {
+              _vm.dialog = $$v
+            },
+            expression: "dialog"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-card-title",
+                { staticClass: "indigo", staticStyle: { color: "white" } },
+                [_vm._v("\r\n      Create Task\r\n    ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                [
+                  _c(
+                    "v-row",
+                    { staticClass: "mx-2" },
+                    [
+                      _c(
+                        "v-col",
+                        {
+                          staticClass: "align-center justify-space-between",
+                          attrs: { cols: "12" }
+                        },
+                        [
+                          _c(
+                            "v-row",
+                            { staticClass: "mr-0", attrs: { align: "center" } },
+                            [
+                              _c(
+                                "v-avatar",
+                                {
+                                  staticClass: "mx-3",
+                                  attrs: { size: "40px" }
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src:
+                                        "//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png",
+                                      alt: ""
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: { placeholder: "Name", required: "" },
+                                model: {
+                                  value: _vm.name,
+                                  callback: function($$v) {
+                                    _vm.name = $$v
+                                  },
+                                  expression: "name"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c("v-textarea", {
+                            staticClass: "mx-2",
+                            attrs: {
+                              placeholder: "Description",
+                              rows: "1",
+                              "prepend-icon": "mdi-comment",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.description,
+                              callback: function($$v) {
+                                _vm.description = $$v
+                              },
+                              expression: "description"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c(
+                            "v-dialog",
+                            {
+                              ref: "dialog1",
+                              attrs: {
+                                "return-value": _vm.start_date,
+                                persistent: "",
+                                width: "290px"
+                              },
+                              on: {
+                                "update:returnValue": function($event) {
+                                  _vm.start_date = $event
+                                },
+                                "update:return-value": function($event) {
+                                  _vm.start_date = $event
+                                }
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "activator",
+                                  fn: function(ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
+                                        "v-text-field",
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              attrs: {
+                                                label: "Start Date",
+                                                "prepend-icon":
+                                                  "mdi-table-large",
+                                                readonly: ""
+                                              },
+                                              model: {
+                                                value: _vm.start_date,
+                                                callback: function($$v) {
+                                                  _vm.start_date = $$v
+                                                },
+                                                expression: "start_date"
+                                              }
+                                            },
+                                            "v-text-field",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        )
+                                      )
+                                    ]
+                                  }
+                                }
+                              ]),
+                              model: {
+                                value: _vm.start_date_modal,
+                                callback: function($$v) {
+                                  _vm.start_date_modal = $$v
+                                },
+                                expression: "start_date_modal"
+                              }
+                            },
+                            [
+                              _vm._v(" "),
+                              _c(
+                                "v-date-picker",
+                                {
+                                  attrs: { scrollable: "" },
+                                  model: {
+                                    value: _vm.start_date,
+                                    callback: function($$v) {
+                                      _vm.start_date = $$v
+                                    },
+                                    expression: "start_date"
+                                  }
+                                },
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { text: "", color: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.start_date_modal = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Cancel")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { text: "", color: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.$refs.dialog1.save(
+                                            _vm.start_date
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("OK")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c(
+                            "v-dialog",
+                            {
+                              ref: "dialog",
+                              attrs: {
+                                "return-value": _vm.end_date,
+                                persistent: "",
+                                width: "290px"
+                              },
+                              on: {
+                                "update:returnValue": function($event) {
+                                  _vm.end_date = $event
+                                },
+                                "update:return-value": function($event) {
+                                  _vm.end_date = $event
+                                }
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "activator",
+                                  fn: function(ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
+                                        "v-text-field",
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              attrs: {
+                                                label: "End Date",
+                                                "prepend-icon":
+                                                  "mdi-table-large",
+                                                readonly: ""
+                                              },
+                                              model: {
+                                                value: _vm.end_date,
+                                                callback: function($$v) {
+                                                  _vm.end_date = $$v
+                                                },
+                                                expression: "end_date"
+                                              }
+                                            },
+                                            "v-text-field",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        )
+                                      )
+                                    ]
+                                  }
+                                }
+                              ]),
+                              model: {
+                                value: _vm.end_date_modal,
+                                callback: function($$v) {
+                                  _vm.end_date_modal = $$v
+                                },
+                                expression: "end_date_modal"
+                              }
+                            },
+                            [
+                              _vm._v(" "),
+                              _c(
+                                "v-date-picker",
+                                {
+                                  attrs: { scrollable: "" },
+                                  model: {
+                                    value: _vm.end_date,
+                                    callback: function($$v) {
+                                      _vm.end_date = $$v
+                                    },
+                                    expression: "end_date"
+                                  }
+                                },
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { text: "", color: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.end_date_modal = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Cancel")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { text: "", color: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.$refs.dialog.save(
+                                            _vm.end_date
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("OK")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        {
+                          staticClass: "d-flex justify-center",
+                          attrs: { cols: "12" }
+                        },
+                        [
+                          _c("v-color-picker", {
+                            model: {
+                              value: _vm.color,
+                              callback: function($$v) {
+                                _vm.color = $$v
+                              },
+                              expression: "color"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { text: "", color: "primary" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _vm.saveOrUpdate == false
+                    ? _c(
+                        "v-btn",
+                        {
+                          attrs: { text: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.addTask()
+                            }
+                          }
+                        },
+                        [_vm._v("Save")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.saveOrUpdate == true
+                    ? _c(
+                        "v-btn",
+                        {
+                          attrs: { text: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.editTask()
+                            }
+                          }
+                        },
+                        [_vm._v("Update")]
+                      )
+                    : _vm._e()
                 ],
                 1
               )

@@ -16,7 +16,7 @@
           </v-list-item>
           <v-list-item link to="/dashboard/calender">
             <v-list-item-action>
-              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <v-icon>mdi-table-large</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Calender</v-list-item-title>

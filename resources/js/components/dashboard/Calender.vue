@@ -94,7 +94,6 @@
           offset-x
         >
           <v-card
-            color="grey lighten-4"
             flat
           >
             <v-toolbar
@@ -107,14 +106,21 @@
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
+                <v-icon>mdi-trash-can</v-icon>
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.description"></span>
+              <h4>Description: <span v-html="selectedEvent.description"></span></h4>
+                  <h4>Status:
+                     <span v-if="selectedEvent.status == 0" class="red--text">Todo</span>
+                     <span v-if="selectedEvent.status == 1" class="yellow--text">Doing</span>
+                     <span v-if="selectedEvent.status == 2" class="green--text">Done</span>
+                  </h4>
+                <br>
+              <hr>
+              <span>Start Date: {{ selectedEvent.start }}</span>
+              <br>
+              <span>End Date: {{ selectedEvent.end }}</span>
             </v-card-text>
             <v-card-actions>
               <v-btn
