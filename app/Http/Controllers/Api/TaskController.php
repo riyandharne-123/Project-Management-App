@@ -15,6 +15,14 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function index()
+    {
+        return response()->json([
+            'tasks' => Task::where('user_id',Auth::user()->id)->get(),
+        ], 200);
+    }
+
     public function get_all(Request $request)
     {
         $project = Project::where('project_url',$request->project_url)->first();
@@ -59,7 +67,33 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $project = Project::where('project_url',$request->project_url)->first();
+
+        $tasks = Tasks::where('project_id',$project->id)->last();
+
+        $order = 0;
+
+        if($tasks == null)
+        {
+            $order = 0;
+        }
+
+        else if($tasks != null)
+        {
+            $order = $tasks->order += 1;
+        }
+
+        Task::create([
+            'user_id' => Auth::user()->id,
+            'project_id' => $project->id,
+            'order' => $order,
+            'status' => 0,
+            'name' => $request->name,
+            'description' => $request->description,
+            'color' => $request->color,
+            'start' => $request->start_date,
+            'end' => $return->end_date
+        ]);
     }
 
     /**
@@ -83,6 +117,23 @@ class TaskController extends Controller
     {
         //
     }
+
+    public function update(Request $request, $id)
+    {
+        $task = Task::find($id);
+        $task->update([
+            'user_id' => Auth::user()->id,
+            'project_id' => $task->project_id,
+            'order' => $task->order,
+            'status' => $task->status,
+            'name' => $request->name,
+            'description' => $request->description,
+            'color' => $request->color,
+            'start' => $request->start_date,
+            'end' => $return->end_date
+        ]);
+    }
+
 
     /**
      * Update the specified resource in storage.

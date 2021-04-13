@@ -17,13 +17,13 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('project_id');
             $table->string('user_id');
-            $table->integer('order')->default(1);
+            $table->integer('order');
             $table->string('name');
             $table->longText('description');
             $table->string('color');
             $table->string('status');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('start');
+            $table->date('end');
             $table->timestamps();
         });
     }

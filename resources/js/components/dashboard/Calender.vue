@@ -1,6 +1,7 @@
 <template>
 <v-app>
-    <v-container>
+  <v-row justify="center">
+    <v-col cols="12">  
       <v-sheet height="64">
         <v-toolbar
           flat
@@ -73,7 +74,7 @@
           </v-menu>
         </v-toolbar>
       </v-sheet>
-      <v-sheet height="600" width="1000">
+      <v-sheet height="500">
         <v-calendar
           ref="calendar"
           v-model="focus"
@@ -94,7 +95,6 @@
         >
           <v-card
             color="grey lighten-4"
-            min-width="350px"
             flat
           >
             <v-toolbar
@@ -114,7 +114,7 @@
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <span v-html="selectedEvent.description"></span>
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -128,7 +128,8 @@
           </v-card>
         </v-menu>
       </v-sheet>
-    </v-container>
+    </v-col>
+  </v-row>
 </v-app>
 </template>
 
@@ -147,11 +148,14 @@
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
     }),
     mounted () {
       this.$refs.calendar.checkChange()
+      axios.get('/api/tasks').then(res =>{
+        this.events = res.data.tasks;
+      }).catch(err =>{
+        console.warn(err)
+      })
     },
     methods: {
       viewDay ({ date }) {
@@ -188,33 +192,12 @@
 
         nativeEvent.stopPropagation()
       },
-      updateRange ({ start, end }) {
-        const events = []
-
-        const min = new Date(`${start.date}T00:00:00`)
-        const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
-
-        for (let i = 0; i < eventCount; i++) {
-          const allDay = this.rnd(0, 3) === 0
-          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-          const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-          const second = new Date(first.getTime() + secondTimestamp)
-
-          events.push({
-            name: this.names[this.rnd(0, this.names.length - 1)],
-            start: first,
-            end: second,
-            color: this.colors[this.rnd(0, this.colors.length - 1)],
-          })
-        }
-
-        this.events = events
-      },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
+      updateRange () {
+        axios.get('/api/tasks').then(res =>{
+          this.events = res.data.tasks;
+        }).catch(err =>{
+          console.warn(err)
+        })
       },
     },
   }
