@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Project;
+use App\Task;
 use Auth;
 
 class ProjectController extends Controller
@@ -96,6 +97,9 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         $project = Project::find($id);
+        $tasks = Task::where('project_id',$project->id)->get();
+
+        $tasks->delete();
         $project->delete();
 
         $projects = Project::orderBy('created_at', 'DESC')->where('user_id',Auth::user()->id)->get();
