@@ -97,7 +97,7 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         $project = Project::find($id);
-        $tasks = Task::where('project_id',$project->id)->get();
+        $tasks = Task::where('project_id',$project->id);
 
         $tasks->delete();
         $project->delete();
