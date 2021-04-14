@@ -2472,12 +2472,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -9113,27 +9107,13 @@ var render = function() {
                               }
                             },
                             [
-                              _c(
-                                "v-btn",
-                                { attrs: { icon: "" } },
-                                [_c("v-icon", [_vm._v("mdi-pencil")])],
-                                1
-                              ),
-                              _vm._v(" "),
                               _c("v-toolbar-title", {
                                 domProps: {
                                   innerHTML: _vm._s(_vm.selectedEvent.name)
                                 }
                               }),
                               _vm._v(" "),
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                { attrs: { icon: "" } },
-                                [_c("v-icon", [_vm._v("mdi-trash-can")])],
-                                1
-                              )
+                              _c("v-spacer")
                             ],
                             1
                           ),
